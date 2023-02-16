@@ -24,18 +24,25 @@ See [this section](#stable-diffusion-v1) below and the [model card](https://hugg
 A suitable [conda](https://conda.io/) environment named `ldm` can be created
 and activated with:
 
-```
+```commandline
 conda env create -f environment.yaml
 conda activate ldm
 ```
 
 You can also update an existing [latent diffusion](https://github.com/CompVis/latent-diffusion) environment by running
 
-```
+```commandline
 conda install pytorch torchvision -c pytorch
 pip install transformers==4.19.2 diffusers invisible-watermark
 pip install -e .
 ``` 
+
+Follow install instructions for [CLIP](https://github.com/openai/CLIP)
+```commandline
+conda install --yes -c pytorch pytorch=1.7.1 torchvision cudatoolkit=11.0
+pip install ftfy regex tqdm
+pip install git+https://github.com/openai/CLIP.git
+```
 
 
 ## Stable Diffusion v1

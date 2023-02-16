@@ -6,35 +6,48 @@ import time
 import random
 import re
 import hashlib
+import json
+
+DIM_INC = 64
+MODES = ["TXT2IMG", "IMG2IMG", "TXT2IMG_OLD"]
+
+class Parameters:
+    def __init__(self, rawJSON):
+        self.dict = json.loads(rawJSON)
+        self.seed = 0
+        self.randomSeed = True
+        self.numSamples = 3
+        self.numIter = 1
+        self.numSteps = 500
+        self.width = DIM_INC * 16
+        self.height = DIM_INC * 24
+        self.mode = MODES[0]
 
 # Params
 seed = 387974712
-randomSeed = False
+randomSeed = True
 numSamples = 3
 numIter = 1
 numSteps = 500
+# width = 64 * 8
+# height = 64 * 12
 width = 64 * 16
 height = 64 * 24
-# width = 64 * 14
-# height = 64 * 16
-# width = 64 * 8
-# height = 64 * 8
 
 # IMG2IMG params
 strength = 0.65
 testMode = False
 
 # Mode
-modes = ["TXT2IMG", "IMG2IMG", "TXT2IMG_OLD"]
-mode = modes[1]
+mode = MODES[1]
 
 # Script
 scriptPath = ''
-if mode == modes[0]:
+if mode == MODES[0]:
     scriptPath = "optimizedSD/optimized_txt2img.py"
-if mode == modes[1]:
+if mode == MODES[1]:
     scriptPath = "optimizedSD/optimized_img2img.py"
-if mode == modes[2]:
+if mode == MODES[2]:
     scriptPath = "scripts/txt2img.py"
 
 # Model Checkpoint
@@ -42,15 +55,17 @@ checkpoints = [
     # "sd-v1-4.ckpt",
     # "v1-5-pruned-emaonly.ckpt",
     # "v1-5-pruned.ckpt",
-    "dreamshaper_33.ckpt", # Versatile, Anime/Character art
-    # "uberRealisticMerge_urpmv12.ckpt", # Photorealistic people
-    # "elldrethsLucidMix_v10.ckpt", # Cartoony and saturated
     # "artErosAerosATribute_aerosNovae.ckpt", # Broken
+    # "chilloutmix_NiCkpt.ckpt",
+    # "deliberate_v11.ckpt",
+    # "dreamshaper_33.ckpt", # Versatile, Anime/Character art
+    # "elldrethsLucidMix_v10.ckpt",  # Cartoony and saturated
+    "uberRealisticMerge_urpmv12.ckpt", # Photorealistic people
 ]
 
 # Input image for img2img
 inputPath = "/mnt/c/Users/chris/Desktop/stable-diffusion-optimized/input/"
-inputImageName = "641049307_00019.png"
+inputImageName = "2412119333_00005.png"
 inputImage = inputPath + inputImageName
 
 # Join prompt from args
@@ -59,11 +74,11 @@ prompt = " ".join(args[1:])
 
 # Base out dir
 outDir = ''
-if mode == modes[0]:
+if mode == MODES[0]:
     outDir = "/mnt/c/Users/chris/Desktop/stable-diffusion-optimized/images/"
-if mode == modes[1]:
+if mode == MODES[1]:
     outDir = "/mnt/c/Users/chris/Desktop/stable-diffusion-optimized/images2images/"
-if mode == modes[2]:
+if mode == MODES[2]:
     outDir = "/mnt/c/Users/chris/Desktop/stable-diffusion/images/"
 
 # Join Prompt
@@ -90,7 +105,7 @@ for i in range(iterations):
         # Build Command
         command = ''
         command += 'python ' + scriptPath
-        if mode == modes[2]:
+        if mode == MODES[2]:
             command += ' --plms --skip_grid'
         else:
             command += ' --turbo'
@@ -99,13 +114,13 @@ for i in range(iterations):
         command += ' --n_iter ' + str(numIter)
         command += ' --ddim_steps ' + str(numSteps)
         command += ' --outdir ' + outDir + rootName + "/ckpt_" + checkpoint + "/"
-        if mode == modes[1]:
+        if mode == MODES[1]:
             command += inputImageName + "/"
         command += ' --seed ' + str(seed)
         command += ' --W ' + str(width)
         command += ' --H ' + str(height)
         command += ' --prompt "' + prompt + '"'
-        if mode == modes[1]:
+        if mode == MODES[1]:
             command += ' --strength "' + str(strength) + '"'
             command += ' --init-img "' + inputImage + '"'
 
