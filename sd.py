@@ -27,19 +27,22 @@ class Parameters:
 seed = 387974712
 randomSeed = True
 numSamples = 3
-numIter = 1
-numSteps = 500
-# width = 64 * 8
-# height = 64 * 12
-width = 64 * 16
-height = 64 * 24
+numIter = 3
+numSteps = 128
+width = 64 * 8
+height = 64 * 12
+# width = 64 * 16
+# height = 64 * 24
+# width = 64 * 24
+# height = 64 * 18
+#1024x768
 
 # IMG2IMG params
 strength = 0.65
 testMode = False
 
 # Mode
-mode = MODES[1]
+mode = MODES[0]
 
 # Script
 scriptPath = ''
@@ -56,16 +59,18 @@ checkpoints = [
     # "v1-5-pruned-emaonly.ckpt",
     # "v1-5-pruned.ckpt",
     # "artErosAerosATribute_aerosNovae.ckpt", # Broken
-    # "chilloutmix_NiCkpt.ckpt",
-    # "deliberate_v11.ckpt",
-    # "dreamshaper_33.ckpt", # Versatile, Anime/Character art
+    "chilloutmix_NiCkpt.ckpt",
+    "deliberate_v11.ckpt",
+    "dreamshaper_33.ckpt", # Versatile, Anime/Character art
     # "elldrethsLucidMix_v10.ckpt",  # Cartoony and saturated
     "uberRealisticMerge_urpmv12.ckpt", # Photorealistic people
 ]
 
 # Input image for img2img
 inputPath = "/mnt/c/Users/chris/Desktop/stable-diffusion-optimized/input/"
-inputImageName = "2412119333_00005.png"
+# inputImageName = "689654732_00054.png"
+# inputImageName = "IMG_3723.JPG"
+inputImageName = "698214922_00005.png"
 inputImage = inputPath + inputImageName
 
 # Join prompt from args

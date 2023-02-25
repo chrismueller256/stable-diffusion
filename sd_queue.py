@@ -3,7 +3,7 @@
 import os
 
 queue = "_prompts/queue.txt"
-queue = "_prompts/best.txt"
+# queue = "_prompts/best.txt"
 
 file1 = open(queue, 'r')
 Lines = file1.readlines()
